@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ['react-icons/fa']
+      external: ['react-icons/fa','react-chartjs-2']
     }
   }
 })
