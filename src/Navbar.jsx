@@ -1,7 +1,7 @@
 import React from "react";
-import './Navbar.css';
+import "./Navbar.css";
 import { FaUser } from "react-icons/fa";
-import mlbLogo from './assets/mlb.png';
+import mlbLogo from "./assets/mlb.png";
 
 function Navbar({ setActiveTab, activeTab }) {
   return (
@@ -18,14 +18,23 @@ function Navbar({ setActiveTab, activeTab }) {
           >
             Home
           </div>
+
           <div
             className={`tab ${activeTab === "metric" ? "active" : ""}`}
             onClick={() => setActiveTab("metric")}
           >
             Metric Experimenter
           </div>
+
+          <div
+            className={`tab ${activeTab === "correlation" ? "active" : ""}`}
+            onClick={() => setActiveTab("correlation")}
+          >
+            Correlation
+          </div>
         </div>
-        <div className="profile-button">
+
+        <div className="profile-button" title="Profile">
           <FaUser />
         </div>
       </div>

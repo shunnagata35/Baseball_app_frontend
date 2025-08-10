@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Calculator from "./Calculator";
+import Correlation from "./Correlation";  // <-- new
 
 function App() {
-  const [activeTab, setActiveTab] = useState("home");
+  const [activeTab, setActiveTab] = useState("metric"); // or "home"
 
   return (
-    <div>
+    <div style={{ height: "100vh", width: "100vw", overflow: "auto" }}>
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
-      <div>
-        {activeTab === "home" && <h2>Welcome to Statool!</h2>}
-        {activeTab === "metric" && <Calculator />}
-      </div>
+      {activeTab === "metric" && <Calculator />}
+      {activeTab === "leaderboard" && <Leaderboard />}
+      {activeTab === "correlation" && <Correlation />}  {/* <-- new */}
     </div>
   );
 }

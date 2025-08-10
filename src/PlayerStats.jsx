@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function Leaderboard() {
+function PlayerStats() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/leaderboard')
+    axios.get('http://localhost:5000/player-stats')
       .then(res => setData(res.data))
-      .catch(err => console.error(err));
+      .catch(err => console.error("Error fetching player stats:", err));
   }, []);
 
-  if (!data.length) return <p>Loading leaderboard...</p>;
+  if (!data.length) return <p>Loading player stats...</p>;
 
   return (
     <div>
-      <h2>Top 50 Players by HR</h2>
+      <h2>All Qualified Hitters (2025)</h2>
       <table border="1" cellPadding="8">
         <thead>
           <tr>
@@ -37,4 +37,4 @@ function Leaderboard() {
   );
 }
 
-export default Leaderboard;
+export default PlayerStats;
