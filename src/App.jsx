@@ -3,6 +3,8 @@ import Navbar from "./Navbar";
 import Calculator from "./Calculator";
 import Correlation from "./Correlation";   // <-- make sure this file exists
 import axios from "axios";
+import VisitCounter from "./VisitCounter";
+
 
 function App() {
   const [activeTab, setActiveTab] = useState("metric"); // default tab
@@ -26,6 +28,7 @@ function App() {
       {activeTab === "metric" && <Calculator />}
       {activeTab === "leaderboard" && <Leaderboard />}
       {activeTab === "correlation" && <Correlation />}
+      {activeTab === "correlation" && < VisitCounter/>}
 
       {/* Visit counter (optional UI) */}
       <div

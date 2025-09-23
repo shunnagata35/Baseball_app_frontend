@@ -1,0 +1,20 @@
+.visit-button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #2EE8D4;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.visit-button:hover {
+  background-color: #24c7b7;
+}
+
+.visit-text {
+  margin-top: 1rem;
+  font-size: 18px;
+  font-weight: 500;
+}
