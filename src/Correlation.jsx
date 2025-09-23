@@ -26,8 +26,8 @@ export default function Correlation() {
     try {
       const url =
         mode === "teams"
-          ? "https://68be5e9fd275090008d2e194--splendorous-malasada-70b433.netlify.app/teams"
-          : "https://68be5e9fd275090008d2e194--splendorous-malasada-70b433.netlify.app/correlation/players";
+          ? "http://localhost:5000/correlation/teams"
+          : "http://localhost:5000/correlation/players";
 
       const res = await axios.post(url, {
         x_formula: xFormula,

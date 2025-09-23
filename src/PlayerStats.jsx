@@ -5,7 +5,7 @@ function PlayerStats() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get('https://68be5e9fd275090008d2e194--splendorous-malasada-70b433.netlify.app/player-stats')
+    axios.get('http://localhost:5000/player-stats')
       .then(res => setData(res.data))
       .catch(err => console.error("Error fetching player stats:", err));
   }, []);

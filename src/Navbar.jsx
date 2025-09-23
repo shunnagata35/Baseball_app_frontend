@@ -1,6 +1,6 @@
 import React from "react";
 import "./Navbar.css";
-import { FaUser } from "react-icons/fa";
+import { FaUser } from "react-icons/fa6";
 import mlbLogo from "./assets/mlb.png";
 
 function Navbar({ setActiveTab, activeTab }) {
