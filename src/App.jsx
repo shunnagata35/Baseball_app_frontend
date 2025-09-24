@@ -1,23 +1,33 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Calculator from "./Calculator";
-import Correlation from "./Correlation";   // <-- make sure this file exists
-import axios from "axios";
+import Correlation from "./Correlation";
 import VisitCounter from "./VisitCounter";
-
+import axios from "axios";
 
 function App() {
   const [activeTab, setActiveTab] = useState("metric"); // default tab
   const [visitCount, setVisitCount] = useState(null);
 
-  // Count visits every time the app mounts
   useEffect(() => {
+    // 1. Increment visit counter on load
     axios
-      .post("https://<your-render-backend>.onrender.com/api/visit")
+      .post("https://baseball-app-backend.onrender.com/api/visit")
       .then((res) => {
         setVisitCount(res.data.total);
       })
       .catch((err) => console.error("Error logging visit:", err));
+
+    // 2. Prompt user for email every time they load the site
+    const email = prompt("Please enter your email address:");
+    if (email) {
+      console.log("User email:", email);
+
+      // Optional: send email to backend
+      // axios.post("https://baseball-app-backend.onrender.com/api/email", { email })
+      //   .then(res => console.log("Email saved:", res.data))
+      //   .catch(err => console.error("Error saving email:", err));
+    }
   }, []);
 
   return (
@@ -28,9 +38,9 @@ function App() {
       {activeTab === "metric" && <Calculator />}
       {activeTab === "leaderboard" && <Leaderboard />}
       {activeTab === "correlation" && <Correlation />}
-      {activeTab === "correlation" && < VisitCounter/>}
+      {activeTab === "correlation" && <VisitCounter />}
 
-      {/* Visit counter (optional UI) */}
+      {/* Visit counter overlay */}
       <div
         style={{
           position: "fixed",
