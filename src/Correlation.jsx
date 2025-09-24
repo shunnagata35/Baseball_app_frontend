@@ -11,6 +11,13 @@ import {
 
 ChartJS.register(PointElement, LinearScale, Tooltip, Legend);
 
+// Use env var if you have one; fallback to your Render URL
+const API =
+  import.meta?.env?.VITE_API_URL ||
+  process.env.REACT_APP_API_URL ||
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://baseball-app-backend.onrender.com";
+
 export default function Correlation() {
   const [mode, setMode] = useState("players"); // "players" or "teams"
   const [xFormula, setXFormula] = useState("HR - SO");
@@ -18,30 +25,43 @@ export default function Correlation() {
   const [points, setPoints] = useState([]);
   const [r, setR] = useState(null);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleRun = async () => {
     setError("");
     setPoints([]);
     setR(null);
+    setLoading(true);
+
     try {
       const url =
         mode === "teams"
-          ? "https://baseball-app-backend.onrender.com/teams"
-          : "https://baseball-app-backend.onrender.com/players";
+          ? `${API}/correlation/teams`
+          : `${API}/correlation/players`;
 
-      const res = await axios.post(url, {
-        x_formula: xFormula,
-        y_formula: yFormula,
-        season: 2025,
-      });
-      if (res.data.error) {
+      const res = await axios.post(
+        url,
+        {
+          x_formula: xFormula,
+          y_formula: yFormula,
+          season: 2025,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+          // withCredentials: true, // enable only if you use cookies
+        }
+      );
+
+      if (res.data?.error) {
         setError(res.data.error);
-        return;
+      } else {
+        setPoints(res.data.points || []);
+        setR(res.data.r ?? null);
       }
-      setPoints(res.data.points || []);
-      setR(res.data.r ?? null);
     } catch (e) {
       setError(e?.response?.data?.error || "Failed to compute correlation.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -116,8 +136,8 @@ export default function Correlation() {
           style={{ padding: 8, width: 300 }}
           placeholder="Y-axis formula (e.g., R)"
         />
-        <button onClick={handleRun} style={{ padding: "8px 16px" }}>
-          Run
+        <button onClick={handleRun} style={{ padding: "8px 16px" }} disabled={loading}>
+          {loading ? "Running..." : "Run"}
         </button>
       </div>
 
@@ -138,8 +158,14 @@ export default function Correlation() {
       </div>
 
       <div style={{ marginTop: 12, fontSize: 12, color: "#555" }}>
-        <div>Available fields: HR, SO, BB, RBI, R, H, Doubles, Triples, SB, CS, GDP, SF, SH, PA, OPS, AVG.</div>
-        <div>Examples: X = <code>HR - SO</code>, Y = <code>R</code> • X = <code>OPS</code>, Y = <code>RBI</code></div>
+        <div>
+          Available fields: HR, SO, BB, RBI, R, H, Doubles, Triples, SB, CS, GDP,
+          SF, SH, PA, OPS, AVG.
+        </div>
+        <div>
+          Examples: X = <code>HR - SO</code>, Y = <code>R</code> • X ={" "}
+          <code>OPS</code>, Y = <code>RBI</code>
+        </div>
       </div>
     </div>
   );
