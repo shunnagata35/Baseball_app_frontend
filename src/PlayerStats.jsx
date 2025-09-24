@@ -5,7 +5,7 @@ function PlayerStats() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/player-stats')
+    axios.get('https://baseball-app-backend.onrender.com/player-stats')
       .then(res => setData(res.data))
       .catch(err => console.error("Error fetching player stats:", err));
   }, []);

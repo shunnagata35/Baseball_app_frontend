@@ -24,7 +24,7 @@ function Calculator() {
       const res = await axios.post(
         import.meta.env.VITE_API_URL
           ? `${import.meta.env.VITE_API_URL}/calculate`
-          : "http://localhost:5000/calculate",
+          : "https://baseball-app-backend.onrender.com/calculate",
         { formula }
       );
       setRows(res.data || []);

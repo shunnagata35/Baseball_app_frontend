@@ -9,7 +9,7 @@ function VisitCounter() {
   const fetchCount = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:5000/api/visits");
+      const res = await axios.get("https://baseball-app-backend.onrender.com/api/visits");
       setCount(res.data.total);
     } catch (err) {
       console.error("Error fetching visit count:", err);

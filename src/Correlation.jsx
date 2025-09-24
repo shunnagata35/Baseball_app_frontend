@@ -26,8 +26,8 @@ export default function Correlation() {
     try {
       const url =
         mode === "teams"
-          ? "http://localhost:5000/correlation/teams"
-          : "http://localhost:5000/correlation/players";
+          ? "https://baseball-app-backend.onrender.com/teams"
+          : "https://baseball-app-backend.onrender.com/players";
 
       const res = await axios.post(url, {
         x_formula: xFormula,
