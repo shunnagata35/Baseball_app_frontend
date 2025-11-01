@@ -11,14 +11,8 @@ function Navbar({ setActiveTab, activeTab }) {
       </div>
       <div className="navbar">
         <img src={mlbLogo} alt="MLB" className="mlb-logo" />
-        <div className="tabs">
-          <div
-            className={`tab ${activeTab === "home" ? "active" : ""}`}
-            onClick={() => setActiveTab("home")}
-          >
-            Home
-          </div>
 
+        <div className="tabs">
           <div
             className={`tab ${activeTab === "metric" ? "active" : ""}`}
             onClick={() => setActiveTab("metric")}

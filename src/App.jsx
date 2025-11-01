@@ -10,37 +10,29 @@ function App() {
   const [visitCount, setVisitCount] = useState(null);
 
   useEffect(() => {
-    // 1. Increment visit counter on load
+    // Increment visit counter on load
     axios
       .post("https://baseball-app-backend.onrender.com/api/visit")
       .then((res) => {
         setVisitCount(res.data.total);
       })
       .catch((err) => console.error("Error logging visit:", err));
-
-    // 2. Prompt user for email every time they load the site
-    const email = prompt("Please enter your email address:");
-    if (email) {
-      console.log("User email:", email);
-
-      // Optional: send email to backend
-      // axios.post("https://baseball-app-backend.onrender.com/api/email", { email })
-      //   .then(res => console.log("Email saved:", res.data))
-      //   .catch(err => console.error("Error saving email:", err));
-    }
   }, []);
 
   return (
     <div style={{ height: "100vh", width: "100vw", overflow: "auto" }}>
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      {/* Render pages based on active tab */}
+      {/* Page Tabs */}
       {activeTab === "metric" && <Calculator />}
-      {activeTab === "leaderboard" && <Leaderboard />}
-      {activeTab === "correlation" && <Correlation />}
-      {activeTab === "correlation" && <VisitCounter />}
+      {activeTab === "correlation" && (
+        <>
+          <Correlation />
+          <VisitCounter /> {/* Only on correlation page */}
+        </>
+      )}
 
-      {/* Visit counter overlay */}
+      {/* Visit counter bubble */}
       <div
         style={{
           position: "fixed",
